@@ -1,4 +1,5 @@
-﻿using Core.Domain.Response;
+﻿using Core.Domain.Entities;
+using Core.Domain.Response;
 using System.Linq.Expressions;
 
 namespace Infrastructure.Repository
