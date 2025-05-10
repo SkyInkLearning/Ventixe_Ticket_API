@@ -52,6 +52,7 @@ public class BaseRepository<TEntity>(DataContext context) : IBaseRepository<TEnt
         catch (Exception ex)
         { return RepositoryResponse<TEntity>.Error(ex.Message, null); }
     }
+
     public virtual async Task<RepositoryResponse> UpdateAsync(TEntity entity)
     {
         try
