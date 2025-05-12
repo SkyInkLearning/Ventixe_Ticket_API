@@ -16,6 +16,9 @@ public class TicketRepository(DataContext context) : BaseRepository<TicketEntity
         {
             if (expression == null) return RepositoryResponse<IEnumerable<TicketEntity>>.BadRequest("Expression is null.", null);
 
+            var exists = await ExistsAsync(expression);
+            if (!exists.Success) return RepositoryResponse<IEnumerable<TicketEntity>>.BadRequest("Expression is null.", null);
+
             var entities = await _dbSet.Where(expression).ToListAsync();
 
             return RepositoryResponse<IEnumerable<TicketEntity>>.Ok(entities);
@@ -28,6 +31,9 @@ public class TicketRepository(DataContext context) : BaseRepository<TicketEntity
         try
         {
             if (expression == null) return RepositoryResponse<IEnumerable<TicketEntity>>.BadRequest("Expression is null.", null);
+
+            var exists = await ExistsAsync(expression);
+            if (!exists.Success) return RepositoryResponse<IEnumerable<TicketEntity>>.BadRequest("Expression is null.", null);
 
             var entities = await _dbSet.Where(expression).ToListAsync();
 
