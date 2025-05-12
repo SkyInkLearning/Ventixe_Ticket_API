@@ -45,6 +45,9 @@ public class BaseRepository<TEntity>(DataContext context) : IBaseRepository<TEnt
         {
             if (expression == null) return RepositoryResponse<TEntity>.BadRequest("Expression is null.", null);
 
+            var exists = await ExistsAsync(expression);
+            if (!exists.Success) return RepositoryResponse<TEntity>.BadRequest("Expression is null.", null);
+
             var entity = await _dbSet.FirstOrDefaultAsync(expression);
 
             return RepositoryResponse<TEntity>.Ok(entity);
