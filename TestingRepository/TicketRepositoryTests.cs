@@ -32,7 +32,6 @@ public class TicketRepositoryTests
     {
         //Arrange
         var entity = RepoTestData.ValidTicketEntities[0];
-        await _context.SaveChangesAsync();
 
         //Act
         var result = await _ticketRepository.CreateAsync(entity);
@@ -46,7 +45,7 @@ public class TicketRepositoryTests
         //Arrange
         _context.Tickets.AddRange(RepoTestData.ValidTicketEntities);
         await _context.SaveChangesAsync();
-        var entity = RepoTestData.InvalidTicketEntities[0];
+        var entity = RepoTestData.ValidTicketEntities[0];
 
         //Act
         var result = await _ticketRepository.CreateAsync(entity);
@@ -181,10 +180,10 @@ public class TicketRepositoryTests
         //Arrange
         _context.Tickets.AddRange(RepoTestData.ValidTicketEntities);
         await _context.SaveChangesAsync();
-        var validTicketId = "1";
+        var validTicketId = 1;
 
         //Act
-        var entity = await _ticketRepository.GetAsync(entity => entity.EventId == validTicketId);
+        var entity = await _ticketRepository.GetAsync(entity => entity.TicketId == validTicketId);
         var updateEntity = entity.Content;
         updateEntity.Gate = 36;
 

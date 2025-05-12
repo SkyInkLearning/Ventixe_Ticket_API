@@ -1,11 +1,12 @@
 ﻿using Core.Domain.Models;
 using Core.Domain.Response;
 using Core.Factories;
+using Core.Interfaces;
 using Infrastructure.Repository;
 
 namespace Core.Internal.Services;
 
-public class TicketService(ITicketRepository ticketRepository)
+public class TicketService(ITicketRepository ticketRepository) : ITicketService
 {
     private readonly ITicketRepository _ticketRepository = ticketRepository;
 
