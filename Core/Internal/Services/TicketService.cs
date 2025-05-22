@@ -71,6 +71,9 @@ public class TicketService(ITicketRepository ticketRepository) : ITicketService
         catch (Exception ex) { return ServiceResponse<IEnumerable<Ticket>>.Error(ex.Message, null); }
     }
 
+    //Maybe add one more where the admin can get all the tickets from an event?
+
+
     public async Task<ServiceResponse> UpdateTicketAsync(UpdateTicketForm updateTicketForm)
     {
         try
