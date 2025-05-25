@@ -25,9 +25,6 @@ public class TicketsController(ITicketService ticketService, IEventIdCheckingSer
     public async Task<IActionResult> GetAllUsersTickets(string userId)
     {
         // External checks:
-        var eventCheckResult = await _eventCheck.EventExistanceCheck(eventId);
-        if (!eventCheckResult.Success) return BadRequest("No event with this id exists.");
-
         var userCheckResult = await _userCheck.UserExistanceCheck(userId);
         if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
 
