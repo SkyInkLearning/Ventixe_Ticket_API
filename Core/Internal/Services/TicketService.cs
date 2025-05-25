@@ -1,5 +1,6 @@
 ﻿using Core.Domain.Models;
 using Core.Domain.Response;
+using Core.External.Models;
 using Core.Factories;
 using Core.Interfaces;
 using Infrastructure.Repository;
@@ -71,7 +72,20 @@ public class TicketService(ITicketRepository ticketRepository) : ITicketService
         catch (Exception ex) { return ServiceResponse<IEnumerable<Ticket>>.Error(ex.Message, null); }
     }
 
-    //Maybe add one more where the admin can get all the tickets from an event?
+    public async Task<ServiceResponse<IEnumerable<Ticket>>> GetAllTicketsForEvent(string eventId)
+    {
+        try
+        {
+            if (eventId == null) { return ServiceResponse<IEnumerable<Ticket>>.BadRequest("Something in the data given is null.", null); }
+
+            var result = await _ticketRepository.GetAllTicketsAtEventAsync(ticket => ticket.EventId == eventId);
+            if (result.Content == null) { return ServiceResponse<IEnumerable<Ticket>>.BadRequest("The list of ticket entities is null.", null); }
+
+            var tickets = result.Content.Select(TicketFactory.Create);
+            return ServiceResponse<IEnumerable<Ticket>>.Ok(tickets);
+        }
+        catch (Exception ex) { return ServiceResponse<IEnumerable<Ticket>>.Error(ex.Message, null); }
+    }
 
 
     public async Task<ServiceResponse> UpdateTicketAsync(UpdateTicketForm updateTicketForm)
