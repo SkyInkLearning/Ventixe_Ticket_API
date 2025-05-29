@@ -6,10 +6,12 @@ using Infrastructure.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Presentation.Extensions.Attributes;
 using System.Net.Http;
 
 namespace Presentation.Controllers;
 
+[UseApiKey]
 [Route("api/[controller]")]
 [ApiController]
 public class TicketsController(ITicketService ticketService, IEventIdCheckingService eventCheck, IUserIdCheckingService userCheck, IInvoiceIdCheckingService invoiceCheck) : ControllerBase
@@ -25,8 +27,8 @@ public class TicketsController(ITicketService ticketService, IEventIdCheckingSer
     public async Task<IActionResult> GetAllUsersTickets(string userId)
     {
         // External checks:
-        var userCheckResult = await _userCheck.UserExistanceCheck(userId);
-        if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
+        //var userCheckResult = await _userCheck.UserExistanceCheck(userId);
+        //if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
 
         var tickets = await _ticketService.GetAllUsersTicketsAsync(userId);
         if (tickets == null) { return NotFound("Tickets not found."); }
@@ -41,8 +43,8 @@ public class TicketsController(ITicketService ticketService, IEventIdCheckingSer
         var eventCheckResult = await _eventCheck.EventExistanceCheck(eventId);
         if (!eventCheckResult.Success) return BadRequest("No event with this id exists.");
 
-        var userCheckResult = await _userCheck.UserExistanceCheck(userId);
-        if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
+        //var userCheckResult = await _userCheck.UserExistanceCheck(userId);
+        //if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
 
         var ueKey = RequestFactory.Create(userId, eventId);
         if (ueKey == null) { return BadRequest("Invalid information given to the factory."); }
@@ -60,8 +62,8 @@ public class TicketsController(ITicketService ticketService, IEventIdCheckingSer
         var eventCheckResult = await _eventCheck.EventExistanceCheck(eventId);
         if (!eventCheckResult.Success) return BadRequest("No event with this id exists.");
 
-        var userCheckResult = await _userCheck.UserExistanceCheck(userId);
-        if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
+        //var userCheckResult = await _userCheck.UserExistanceCheck(userId);
+        //if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
 
         var uesKey = RequestFactory.Create(userId, eventId, seatNumber);
         if (uesKey == null) { return BadRequest("Invalid information given to the factory."); }

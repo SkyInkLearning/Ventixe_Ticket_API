@@ -7,6 +7,7 @@ using System.Text.Json;
 
 namespace Presentation.ServiceBus;
 
+// Service bus reciever made with the help of chatgpt.
 public class ServiceBusReceiver : IAsyncDisposable
 {
     private readonly ServiceBusClient _client;
