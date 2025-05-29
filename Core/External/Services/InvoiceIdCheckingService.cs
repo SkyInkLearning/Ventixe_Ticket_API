@@ -23,6 +23,8 @@ public class InvoiceIdCheckingService : IInvoiceIdCheckingService
         // Need to check the future invoice microservice to figure out how to structure this more.
         // If there is a get one invoice controller then use that instead.
 
+        // There is currently no invoice at all.. 
+
         var response = await _httpClient.GetAsync($"{_invoiceApiUrl}/");
         response.EnsureSuccessStatusCode();
 
