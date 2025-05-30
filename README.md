@@ -1,7 +1,5 @@
 # EventTicketService
 
-Made by https://github.com/SimonR-prog
-
 # Postman:
 
 ## Authentication:
@@ -38,4 +36,14 @@ Invalid requests will be met with:
 ```json
 ```
 
+# Sequence diagram plantuml
+
+<img src="https://github.com/user-attachments/assets/337fefe0-5c01-447a-a884-0e0db2e1e85c" width="400">
+
 # Usage in the frontend:
+
+Coming soon..
+
+### Created By:
+
+https://github.com/SimonR-prog
