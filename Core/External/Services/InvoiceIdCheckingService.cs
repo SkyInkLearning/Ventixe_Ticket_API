@@ -9,6 +9,8 @@ namespace Core.External.Services;
 
 public class InvoiceIdCheckingService : IInvoiceIdCheckingService
 {
+    // Started this with chatgpt.. Was supposed to be used to check for invoice id but it never became anything.
+
     private readonly HttpClient _httpClient;
     private readonly string _invoiceApiUrl;
 

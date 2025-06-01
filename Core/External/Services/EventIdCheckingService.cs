@@ -9,6 +9,9 @@ namespace Core.External.Services;
 
 public class EventIdCheckingService : IEventIdCheckingService
 {
+    // Entire method made with help from chatgpt to bring in all the events, as there is no controller to
+    // only get one event, to validate if the eventid sent is located among the events.
+
     private readonly HttpClient _httpClient;
     private readonly string _eventApiUrl;
 
