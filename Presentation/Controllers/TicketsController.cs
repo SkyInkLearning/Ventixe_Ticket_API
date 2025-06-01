@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Presentation.Extensions.Attributes;
+using Swashbuckle.AspNetCore.Annotations;
 using System.Net.Http;
 
 namespace Presentation.Controllers;
@@ -24,9 +25,13 @@ public class TicketsController(ITicketService ticketService, IEventIdCheckingSer
 
     // Getting all the tickets that the user has for all events.
     [HttpGet("user/{userId}")]
+    [SwaggerOperation(Summary = "Gets all the tickets at all events for a user.")]
+    [SwaggerResponse(200, "Returns a list of tickets with that userId.")]
+    [SwaggerResponse(400, "The user does not exist.")]
+    [SwaggerResponse(404, "No tickets exists for that user.")]
     public async Task<IActionResult> GetAllUsersTickets(string userId)
     {
-        // External checks:
+        // External checks: (400 if this is active..)
         //var userCheckResult = await _userCheck.UserExistanceCheck(userId);
         //if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
 
@@ -38,6 +43,11 @@ public class TicketsController(ITicketService ticketService, IEventIdCheckingSer
 
     // Getting all the tickets of the user from that event.
     [HttpGet("user/{userId}/event/{eventId}")]
+    [SwaggerOperation(Summary = "Gets all the tickets a specific user has at an event.")]
+    [SwaggerResponse(200, "Returns a list of tickets with that user and event id.")]
+    [SwaggerResponse(400, "Either the eventid or userid sent does not exist.")]
+    [SwaggerResponse(400, "Either the eventid or userid was invalid.")]
+    [SwaggerResponse(404, "This user does not have any tickets at this event.")]
     public async Task<IActionResult> GetAllUsersTicketsAtEvent(string userId, string eventId)
     {
         var eventCheckResult = await _eventCheck.EventExistanceCheck(eventId);
@@ -57,6 +67,11 @@ public class TicketsController(ITicketService ticketService, IEventIdCheckingSer
 
     // Getting one single ticket for a user at one event.
     [HttpGet("user/{userId}/event/{eventId}/seat/{seatNumber}")]
+    [SwaggerOperation(Summary = "Gets a single ticket of a user at a specific event.")]
+    [SwaggerResponse(200, "Returns a ticket for that specific userid/eventid and seatnumber.")]
+    [SwaggerResponse(400, "Either the eventid or userid sent does not exist.")]
+    [SwaggerResponse(400, "Either the eventid or userid was invalid.")]
+    [SwaggerResponse(404, "This user does not have any tickets at this event.")]
     public async Task<IActionResult> GetATicket(string userId, string eventId, string seatNumber)
     {
         var eventCheckResult = await _eventCheck.EventExistanceCheck(eventId);
@@ -76,6 +91,9 @@ public class TicketsController(ITicketService ticketService, IEventIdCheckingSer
 
     // Getting all the tickets for an event.
     [HttpGet("event/{eventId}")]
+    [SwaggerOperation(Summary = "Gets all tickets at a certain event.")]
+    [SwaggerResponse(200, "Returns a list of all tickets that exists at that event.")]
+    [SwaggerResponse(400, "The eventid does not exist.")]
     public async Task<IActionResult> GetAllEventTickets(string eventId)
     {
         // External checks:
