@@ -1,4 +1,4 @@
-# EventTicketService
+# Event Ticket Service API:
 
 ## Purpose and thinking:
 
