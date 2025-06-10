@@ -1,5 +1,14 @@
 # EventTicketService
 
+## Purpose and thinking:
+
+This is the service backend where a ticket is created. The data comes in through a service bus from the ticket gateway and it has a API attached for the extraction of data. 
+
+
+## Sequence diagram plantuml
+
+<img src="https://github.com/user-attachments/assets/337fefe0-5c01-447a-a884-0e0db2e1e85c" width="400">
+
 # Postman:
 
 ## Authentication:
@@ -35,14 +44,6 @@ Invalid requests will be met with:
 
 ```json
 ```
-
-# Sequence diagram plantuml
-
-<img src="https://github.com/user-attachments/assets/337fefe0-5c01-447a-a884-0e0db2e1e85c" width="400">
-
-# Usage in the frontend:
-
-Coming soon..
 
 ### Created By:
 
